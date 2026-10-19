@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const WS = dirname(fileURLToPath(import.meta.url));
 const IT = process.argv[2] || join(WS, "iteration-1");
-const LINT = "C:/Users/stj.ccanbaz/.claude/skills/material-design-web/scripts/lint-tokens.mjs";
+const LINT = join(WS, "../../scripts/lint-tokens.mjs");
 
 const read = (p) => (existsSync(p) ? readFileSync(p, "utf8") : "");
 function mainFile(out, preferred) {
