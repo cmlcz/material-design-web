@@ -14,3 +14,8 @@ Two suites. Neither is loaded with the skill; they exist to retest it after edit
 - Let agents write only to a scratch `out/q<N>/` folder; don't forbid writing files, or build tasks stop before loading any skill.
 - Record `{"<query id>": "<agentId>"}` in `runs.json`, then `python -I detect.py <subagent transcript dir>`.
 - Baseline (2026-10-19, Haiku 5.5): 7/12 should-trigger fired, 7/7 should-not stayed quiet. `results-2026-10-19.json` has the details.
+
+## Quick start
+- Quality: `node evals/quality/grade.mjs evals/quality/iteration-1` (after the runs are saved there).
+- Trigger: `python -I evals/trigger/detect.py <subagent transcript dir>` (after filling `runs.json`).
+- Run output (`iteration-*/`, `trigger/out/`, `runs.json`) is git-ignored.
