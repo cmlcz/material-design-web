@@ -1,0 +1,18 @@
+/* Acme Design System v3: tokens. Do not use raw colors in components. */
+@import "tailwindcss";
+@theme {
+  --color-acme-ink: #0f172a;
+  --color-acme-muted: #475569;
+  --color-acme-canvas: #f8fafc;
+  --color-acme-panel: #ffffff;
+  --color-acme-line: #e2e8f0;
+  --color-acme-brand: #0e7490;
+  --color-acme-brand-ink: #ffffff;
+  --color-acme-danger: #b91c1c;
+  --radius-acme: 6px;
+  --font-acme: "Inter", system-ui, sans-serif;
+}
+.acme-btn { @apply inline-flex h-9 items-center gap-2 rounded-acme px-4 text-sm font-medium; }
+.acme-btn-primary { @apply acme-btn bg-acme-brand text-acme-brand-ink; }
+.acme-btn-ghost { @apply acme-btn text-acme-ink hover:bg-acme-canvas; }
+.acme-card { @apply rounded-acme border border-acme-line bg-acme-panel p-5; }

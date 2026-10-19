@@ -1,0 +1,316 @@
+/*
+ * Material Design 3 theme for Tailwind CSS v4
+ * -------------------------------------------
+ * Source of values: Google's material-web token files (tokens/versions/v0_192),
+ * baseline scheme (seed #6750A4). Replace the color block with a generated
+ * scheme for a brand color (see references/tailwind/dark-mode-and-brand-color.md).
+ *
+ * Usage: load Tailwind first, then this file. See references/tailwind/setup.md.
+ *   Build tool: in app.css, import "tailwindcss" and then this file.
+ *   Single-file page: paste this file into <style type="text/tailwindcss">
+ *   under an explicit Tailwind import line (setup.md shows the snippet).
+ *   (No at-rule is spelled out in this comment on purpose: the Tailwind browser
+ *   build skips its automatic Tailwind import when the at-import keyword appears
+ *   anywhere in the style block, comments included, and every utility goes missing.)
+ *
+ * Architecture (three layers, read top to bottom):
+ *   1. :root    --md-sys-*  role variables. light-dark() holds both themes.
+ *   2. @theme   Tailwind tokens that point at the role variables, so
+ *               utilities are named after M3 roles: bg-primary, text-on-surface,
+ *               text-body-large, rounded-corner-medium, shadow-elevation-2.
+ *   3. @utility Small M3 behaviors that need pseudo-elements:
+ *               state-layer, focus-ring, touch-target.
+ *
+ * Existing project? The `--*-*: initial` resets remove Tailwind's default
+ * palette, radii, shadows, text sizes and breakpoints so only M3 tokens exist.
+ * Delete a reset line if the project still depends on those defaults.
+ */
+
+/* ---------------------------------------------------------------- */
+/* 1. Role variables: light-dark(LIGHT, DARK)                        */
+/* ---------------------------------------------------------------- */
+:root {
+  color-scheme: light dark; /* follows the OS by default */
+
+  /* Primary */
+  --md-sys-color-primary: light-dark(#6750a4, #d0bcff);
+  --md-sys-color-on-primary: light-dark(#ffffff, #381e72);
+  --md-sys-color-primary-container: light-dark(#eaddff, #4f378b);
+  --md-sys-color-on-primary-container: light-dark(#21005d, #eaddff);
+  --md-sys-color-inverse-primary: light-dark(#d0bcff, #6750a4);
+  --md-sys-color-primary-fixed: #eaddff;
+  --md-sys-color-primary-fixed-dim: #d0bcff;
+  --md-sys-color-on-primary-fixed: #21005d;
+  --md-sys-color-on-primary-fixed-variant: #4f378b;
+
+  /* Secondary */
+  --md-sys-color-secondary: light-dark(#625b71, #ccc2dc);
+  --md-sys-color-on-secondary: light-dark(#ffffff, #332d41);
+  --md-sys-color-secondary-container: light-dark(#e8def8, #4a4458);
+  --md-sys-color-on-secondary-container: light-dark(#1d192b, #e8def8);
+  --md-sys-color-secondary-fixed: #e8def8;
+  --md-sys-color-secondary-fixed-dim: #ccc2dc;
+  --md-sys-color-on-secondary-fixed: #1d192b;
+  --md-sys-color-on-secondary-fixed-variant: #4a4458;
+
+  /* Tertiary */
+  --md-sys-color-tertiary: light-dark(#7d5260, #efb8c8);
+  --md-sys-color-on-tertiary: light-dark(#ffffff, #492532);
+  --md-sys-color-tertiary-container: light-dark(#ffd8e4, #633b48);
+  --md-sys-color-on-tertiary-container: light-dark(#31111d, #ffd8e4);
+  --md-sys-color-tertiary-fixed: #ffd8e4;
+  --md-sys-color-tertiary-fixed-dim: #efb8c8;
+  --md-sys-color-on-tertiary-fixed: #31111d;
+  --md-sys-color-on-tertiary-fixed-variant: #633b48;
+
+  /* Error */
+  --md-sys-color-error: light-dark(#b3261e, #f2b8b5);
+  --md-sys-color-on-error: light-dark(#ffffff, #601410);
+  --md-sys-color-error-container: light-dark(#f9dedc, #8c1d18);
+  --md-sys-color-on-error-container: light-dark(#410e0b, #f9dedc);
+
+  /* Surfaces (neutral) */
+  --md-sys-color-background: light-dark(#fef7ff, #141218);
+  --md-sys-color-on-background: light-dark(#1d1b20, #e6e0e9);
+  --md-sys-color-surface: light-dark(#fef7ff, #141218);
+  --md-sys-color-on-surface: light-dark(#1d1b20, #e6e0e9);
+  --md-sys-color-surface-variant: light-dark(#e7e0ec, #49454f);
+  --md-sys-color-on-surface-variant: light-dark(#49454f, #cac4d0);
+  --md-sys-color-surface-dim: light-dark(#ded8e1, #141218);
+  --md-sys-color-surface-bright: light-dark(#fef7ff, #3b383e);
+  --md-sys-color-surface-container-lowest: light-dark(#ffffff, #0f0d13);
+  --md-sys-color-surface-container-low: light-dark(#f7f2fa, #1d1b20);
+  --md-sys-color-surface-container: light-dark(#f3edf7, #211f26);
+  --md-sys-color-surface-container-high: light-dark(#ece6f0, #2b2930);
+  --md-sys-color-surface-container-highest: light-dark(#e6e0e9, #36343b);
+  --md-sys-color-inverse-surface: light-dark(#322f35, #e6e0e9);
+  --md-sys-color-inverse-on-surface: light-dark(#f5eff7, #322f35);
+  --md-sys-color-surface-tint: light-dark(#6750a4, #d0bcff);
+
+  /* Lines and overlays */
+  --md-sys-color-outline: light-dark(#79747e, #938f99);
+  --md-sys-color-outline-variant: light-dark(#cac4d0, #49454f);
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-scrim: #000000;
+
+  /* Motion durations (for hand-written CSS; utilities use duration-50 ... duration-1000) */
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+  --md-sys-motion-duration-extra-long1: 700ms;
+  --md-sys-motion-duration-extra-long2: 800ms;
+  --md-sys-motion-duration-extra-long3: 900ms;
+  --md-sys-motion-duration-extra-long4: 1000ms;
+
+  /* State layer opacities */
+  --md-sys-state-hover-opacity: 0.08;
+  --md-sys-state-focus-opacity: 0.12;
+  --md-sys-state-pressed-opacity: 0.12;
+  --md-sys-state-dragged-opacity: 0.16;
+}
+
+/* Forced themes: set data-theme on <html> to override the OS preference. */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
+
+/* ---------------------------------------------------------------- */
+/* 2. Tailwind tokens named after M3 roles                           */
+/* ---------------------------------------------------------------- */
+@theme inline {
+  /* Color: bg-<role>, text-<role>, border-<role>, fill-<role>, ring-<role> */
+  --color-*: initial;
+  --color-primary: var(--md-sys-color-primary);
+  --color-on-primary: var(--md-sys-color-on-primary);
+  --color-primary-container: var(--md-sys-color-primary-container);
+  --color-on-primary-container: var(--md-sys-color-on-primary-container);
+  --color-inverse-primary: var(--md-sys-color-inverse-primary);
+  --color-primary-fixed: var(--md-sys-color-primary-fixed);
+  --color-primary-fixed-dim: var(--md-sys-color-primary-fixed-dim);
+  --color-on-primary-fixed: var(--md-sys-color-on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--md-sys-color-on-primary-fixed-variant);
+
+  --color-secondary: var(--md-sys-color-secondary);
+  --color-on-secondary: var(--md-sys-color-on-secondary);
+  --color-secondary-container: var(--md-sys-color-secondary-container);
+  --color-on-secondary-container: var(--md-sys-color-on-secondary-container);
+  --color-secondary-fixed: var(--md-sys-color-secondary-fixed);
+  --color-secondary-fixed-dim: var(--md-sys-color-secondary-fixed-dim);
+  --color-on-secondary-fixed: var(--md-sys-color-on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(--md-sys-color-on-secondary-fixed-variant);
+
+  --color-tertiary: var(--md-sys-color-tertiary);
+  --color-on-tertiary: var(--md-sys-color-on-tertiary);
+  --color-tertiary-container: var(--md-sys-color-tertiary-container);
+  --color-on-tertiary-container: var(--md-sys-color-on-tertiary-container);
+  --color-tertiary-fixed: var(--md-sys-color-tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--md-sys-color-tertiary-fixed-dim);
+  --color-on-tertiary-fixed: var(--md-sys-color-on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(--md-sys-color-on-tertiary-fixed-variant);
+
+  --color-error: var(--md-sys-color-error);
+  --color-on-error: var(--md-sys-color-on-error);
+  --color-error-container: var(--md-sys-color-error-container);
+  --color-on-error-container: var(--md-sys-color-on-error-container);
+
+  --color-background: var(--md-sys-color-background);
+  --color-on-background: var(--md-sys-color-on-background);
+  --color-surface: var(--md-sys-color-surface);
+  --color-on-surface: var(--md-sys-color-on-surface);
+  --color-surface-variant: var(--md-sys-color-surface-variant);
+  --color-on-surface-variant: var(--md-sys-color-on-surface-variant);
+  --color-surface-dim: var(--md-sys-color-surface-dim);
+  --color-surface-bright: var(--md-sys-color-surface-bright);
+  --color-surface-container-lowest: var(--md-sys-color-surface-container-lowest);
+  --color-surface-container-low: var(--md-sys-color-surface-container-low);
+  --color-surface-container: var(--md-sys-color-surface-container);
+  --color-surface-container-high: var(--md-sys-color-surface-container-high);
+  --color-surface-container-highest: var(--md-sys-color-surface-container-highest);
+  --color-inverse-surface: var(--md-sys-color-inverse-surface);
+  --color-inverse-on-surface: var(--md-sys-color-inverse-on-surface);
+  --color-surface-tint: var(--md-sys-color-surface-tint);
+
+  --color-outline: var(--md-sys-color-outline);
+  --color-outline-variant: var(--md-sys-color-outline-variant);
+  --color-shadow: var(--md-sys-color-shadow);
+  --color-scrim: var(--md-sys-color-scrim);
+
+  /* Typefaces: font-brand (display, headline), font-plain (everything else) */
+  --font-brand: "Roboto Flex", Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-plain: "Roboto Flex", Roboto, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-plain);
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+}
+
+@theme {
+  /* Type scale: text-<role>-<size>. Each sets size, line-height, tracking, weight. */
+  --text-*: initial;
+  --text-display-large: 3.5625rem;    --text-display-large--line-height: 4rem;       --text-display-large--letter-spacing: -0.015625rem; --text-display-large--font-weight: 400;
+  --text-display-medium: 2.8125rem;   --text-display-medium--line-height: 3.25rem;   --text-display-medium--letter-spacing: 0rem;        --text-display-medium--font-weight: 400;
+  --text-display-small: 2.25rem;      --text-display-small--line-height: 2.75rem;    --text-display-small--letter-spacing: 0rem;         --text-display-small--font-weight: 400;
+  --text-headline-large: 2rem;        --text-headline-large--line-height: 2.5rem;    --text-headline-large--letter-spacing: 0rem;        --text-headline-large--font-weight: 400;
+  --text-headline-medium: 1.75rem;    --text-headline-medium--line-height: 2.25rem;  --text-headline-medium--letter-spacing: 0rem;       --text-headline-medium--font-weight: 400;
+  --text-headline-small: 1.5rem;      --text-headline-small--line-height: 2rem;      --text-headline-small--letter-spacing: 0rem;        --text-headline-small--font-weight: 400;
+  --text-title-large: 1.375rem;       --text-title-large--line-height: 1.75rem;      --text-title-large--letter-spacing: 0rem;           --text-title-large--font-weight: 400;
+  --text-title-medium: 1rem;          --text-title-medium--line-height: 1.5rem;      --text-title-medium--letter-spacing: 0.009375rem;   --text-title-medium--font-weight: 500;
+  --text-title-small: 0.875rem;       --text-title-small--line-height: 1.25rem;      --text-title-small--letter-spacing: 0.00625rem;     --text-title-small--font-weight: 500;
+  --text-label-large: 0.875rem;       --text-label-large--line-height: 1.25rem;      --text-label-large--letter-spacing: 0.00625rem;     --text-label-large--font-weight: 500;
+  --text-label-medium: 0.75rem;       --text-label-medium--line-height: 1rem;        --text-label-medium--letter-spacing: 0.03125rem;    --text-label-medium--font-weight: 500;
+  --text-label-small: 0.6875rem;      --text-label-small--line-height: 1rem;         --text-label-small--letter-spacing: 0.03125rem;     --text-label-small--font-weight: 500;
+  --text-body-large: 1rem;            --text-body-large--line-height: 1.5rem;        --text-body-large--letter-spacing: 0.03125rem;      --text-body-large--font-weight: 400;
+  --text-body-medium: 0.875rem;       --text-body-medium--line-height: 1.25rem;      --text-body-medium--letter-spacing: 0.015625rem;    --text-body-medium--font-weight: 400;
+  --text-body-small: 0.75rem;         --text-body-small--line-height: 1rem;          --text-body-small--letter-spacing: 0.025rem;        --text-body-small--font-weight: 400;
+
+  /* Shape: rounded-corner-<size>. Partial corners: rounded-t-corner-extra-large etc. */
+  --radius-*: initial;
+  --radius-corner-none: 0px;
+  --radius-corner-extra-small: 4px;
+  --radius-corner-small: 8px;
+  --radius-corner-medium: 12px;
+  --radius-corner-large: 16px;
+  --radius-corner-extra-large: 28px;
+  --radius-corner-full: 9999px;
+
+  /* Elevation: shadow-elevation-<level>. Level 0 = shadow-none. */
+  --shadow-*: initial;
+  --shadow-elevation-1: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --shadow-elevation-2: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+  --shadow-elevation-3: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
+  --shadow-elevation-4: 0 2px 3px 0 rgb(0 0 0 / 0.3), 0 6px 10px 4px rgb(0 0 0 / 0.15);
+  --shadow-elevation-5: 0 4px 4px 0 rgb(0 0 0 / 0.3), 0 8px 12px 6px rgb(0 0 0 / 0.15);
+
+  /* Easing: ease-<name> */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+
+  /* Window size classes as variants: medium:, expanded:, large:, extra-large: */
+  --breakpoint-*: initial;
+  --breakpoint-medium: 37.5rem;      /* 600px  */
+  --breakpoint-expanded: 52.5rem;    /* 840px  */
+  --breakpoint-large: 75rem;         /* 1200px */
+  --breakpoint-extra-large: 100rem;  /* 1600px */
+
+  /* Spacing stays on Tailwind's 4px grid (--spacing: 0.25rem), which matches M3's 4dp grid. */
+}
+
+/* ---------------------------------------------------------------- */
+/* 3. M3 behaviors                                                   */
+/* ---------------------------------------------------------------- */
+
+/* State layer: a content-colored overlay that shows hover/focus/pressed.
+   Put it on any interactive element. The overlay color is the element's
+   text color (currentColor), which is exactly M3's rule. */
+@utility state-layer {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: currentColor;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  &:hover::before { opacity: var(--md-sys-state-hover-opacity); }
+  &:focus-visible::before { opacity: var(--md-sys-state-focus-opacity); }
+  &:active::before { opacity: var(--md-sys-state-pressed-opacity); }
+  &:disabled::before,
+  &[aria-disabled="true"]::before { opacity: 0; }
+}
+
+/* Focus ring: M3 focus indicator (3px, secondary, offset 2px), keyboard only. */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 3px solid var(--md-sys-color-secondary);
+    outline-offset: 2px;
+  }
+}
+
+/* Touch target: grows the hit area to at least 48x48px without changing the
+   visual size. Use on small visuals (24px icons, 18px checkboxes, 32px chips). */
+@utility touch-target {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 48px);
+    height: max(100%, 48px);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+    font-family: var(--font-plain);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

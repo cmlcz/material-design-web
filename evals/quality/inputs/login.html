@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<title>Login</title>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900">
+  <div class="max-w-md mx-auto mt-24 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+    <img src="logo.svg" class="h-8 mb-6">
+    <div class="text-3xl font-black text-gray-800 dark:text-white mb-1">Welcome back!</div>
+    <div class="text-sm text-gray-400 mb-6">Please login to continue</div>
+    <input id="email" placeholder="Email" class="w-full border border-gray-200 rounded px-3 py-2 mb-3 outline-none focus:border-blue-500">
+    <input id="pw" type="password" placeholder="Password" class="w-full border border-gray-200 rounded px-3 py-2 mb-1 outline-none focus:border-blue-500">
+    <div id="err" class="text-red-500 text-xs mb-3 hidden">Invalid input</div>
+    <div class="flex justify-between items-center mb-6">
+      <label class="text-xs text-gray-500"><input type="checkbox" class="mr-1">Remember me</label>
+      <span onclick="location.href='/forgot'" class="text-xs text-blue-500 cursor-pointer">Forgot password?</span>
+    </div>
+    <button id="go" disabled class="w-full bg-blue-600 text-white py-2 rounded uppercase tracking-widest text-xs font-bold disabled:opacity-50">Login</button>
+    <button class="w-full bg-blue-600 text-white py-2 rounded uppercase tracking-widest text-xs font-bold mt-2">Sign up</button>
+  </div>
+<script>
+  const e=document.getElementById('email'),p=document.getElementById('pw'),b=document.getElementById('go');
+  [e,p].forEach(i=>i.addEventListener('input',()=>{const ok=/\S+@\S+/.test(e.value)&&p.value.length>7;document.getElementById('err').classList.toggle('hidden',ok);b.disabled=!ok;}));
+</script>
+</body>
+</html>

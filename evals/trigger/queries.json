@@ -1,0 +1,22 @@
+[
+  {"id": 1,  "expect": true,  "query": "make me a landing page for my bakery 'Crumb & Co' - single html file with tailwind, hero, menu highlights, opening hours, contact"},
+  {"id": 2,  "expect": true,  "query": "can you look over my signup form in signup.html and tell me what's off UX-wise? don't change it yet"},
+  {"id": 3,  "expect": true,  "query": "I want a Material You style settings screen for my web app (React + Tailwind). account, notifications, theme picker"},
+  {"id": 4,  "expect": true,  "query": "dashboard.html looks cluttered and nothing stands out. how do I fix the visual hierarchy?"},
+  {"id": 5,  "expect": true,  "query": "add a proper dark mode to notes-page.html, it should follow the system setting"},
+  {"id": 6,  "expect": true,  "query": "set up M3 color tokens in tailwind v4 generated from my brand color #0b6e4f"},
+  {"id": 7,  "expect": true,  "query": "the buttons on pricing.html are tiny on my phone and the text is hard to read. fix it"},
+  {"id": 8,  "expect": true,  "query": "build a todo app UI in one html file, make it feel bold and playful like the new android expressive design"},
+  {"id": 9,  "expect": true,  "query": "audit components/Card.tsx for accessibility and UI problems"},
+  {"id": 10, "expect": true,  "query": "design a responsive navigation for my web app: bottom bar on phones, side rail on tablets, drawer on desktop. tailwind"},
+  {"id": 11, "expect": true,  "query": "the validation in contact-form.html is awful (alert popups). make the error states and feedback feel right"},
+  {"id": 12, "expect": true,  "query": "need a material design style data table with sorting and pagination for my admin page, plain html + tailwind"},
+  {"id": 13, "expect": false, "query": "write a python script that renames the photos in a folder by the date they were taken"},
+  {"id": 14, "expect": false, "query": "POST /users in api/server.js returns 500 every time, what's wrong?"},
+  {"id": 15, "expect": false, "query": "add a dark mode toggle to the header of my shop-app (Next.js with shadcn/ui)"},
+  {"id": 16, "expect": false, "query": "build a Jetpack Compose login screen for my Android app using Material 3"},
+  {"id": 17, "expect": false, "query": "create a checkout page with Bootstrap 5, cart summary on the right and a payment form"},
+  {"id": 18, "expect": false, "query": "explain when I should use CSS grid vs flexbox, with a small example of each"},
+  {"id": 19, "expect": false, "query": "write unit tests for utils/date.ts using vitest"},
+  {"id": 20, "expect": false, "query": "write a GitHub Actions workflow that runs npm test on every pull request"}
+]

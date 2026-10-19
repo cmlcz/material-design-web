@@ -1,0 +1,61 @@
+{
+  "skill_name": "material-design-web",
+  "evals": [
+    {
+      "id": 1,
+      "name": "build-signup-page",
+      "prompt": "Build a sign-up page for my habit-tracking web app \"Streaks\". Fields: name, email, password, and an 'I agree to the terms' checkbox. Use Tailwind. Give me one self-contained index.html I can open in a browser.",
+      "expected_output": "Single HTML file with M3 tokens via Tailwind v4, labeled fields, validation behaviour, states, accessible, responsive.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "build-store-dashboard",
+      "prompt": "Create a responsive analytics dashboard for a small online store: today's orders, revenue, conversion rate, a top-products list and a recent-orders table. I want the Material Design 3 look. Single HTML file with Tailwind v4, should work on phone and desktop.",
+      "expected_output": "Responsive M3 dashboard with nav adapting to window size class, tonal surfaces, type roles, loading/empty states.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "build-settings-page",
+      "prompt": "I need a settings page for my notes app: an account section, appearance with System/Light/Dark theme choice that actually works, notification toggles, and a danger zone to delete the account (with confirmation). Material style, Tailwind, one HTML file please.",
+      "expected_output": "Settings page with segmented theme control wired to data-theme, switches, confirm dialog, no dark: classes.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "review-login-page",
+      "prompt": "Can you review the UX of my login page in inputs/login.html? Tell me what's wrong and how to fix it. Don't change the file yet.",
+      "expected_output": "Severity-ordered report with location, condition, rule broken, why it hurts, fix snippet, verify; no file edits.",
+      "files": ["inputs/login.html"]
+    },
+    {
+      "id": 5,
+      "name": "audit-product-grid",
+      "prompt": "Audit inputs/ProductGrid.tsx for UI/UX and accessibility problems. We're moving the store to Material 3 with Tailwind v4, so tell me what needs to change. Just the audit for now.",
+      "expected_output": "Report covering missing states (loading/empty/error), clickable div, img alt, contrast, targets, competing CTAs, responsive grid, tokens.",
+      "files": ["inputs/ProductGrid.tsx"]
+    },
+    {
+      "id": 6,
+      "name": "fix-delete-dialog",
+      "prompt": "My delete-project confirmation in inputs/delete-dialog.html feels clunky. Fix it so it follows Material Design 3 properly and save the fixed version as delete-dialog.fixed.html. Briefly list what you changed.",
+      "expected_output": "Fixed file using <dialog>/showModal, M3 dialog specs, text buttons end-aligned with verb labels, focus handling, tokens.",
+      "files": ["inputs/delete-dialog.html"]
+    },
+    {
+      "id": 7,
+      "name": "expressive-onboarding",
+      "prompt": "Design a playful, expressive onboarding screen for a kids' reading app (3 steps: pick a favourite animal, pick a reading level, start). I'd like it to feel like Material 3 Expressive: bold, bouncy, fun. Single HTML file with Tailwind.",
+      "expected_output": "Expressive levers (color, shape, size, spring motion, containment) on top of M3 tokens, still accessible, reduced motion honored.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "name": "existing-design-system",
+      "prompt": "Add a 'Team members' card to the workspace settings page in inputs/acme-admin/index.html: list of members with avatar, name, email, role, a way to change role and remove a member, and an 'Invite member' action. Save the updated page as index.updated.html in your outputs folder.",
+      "expected_output": "Uses the existing Acme design system tokens/classes (acme-card, acme-btn-*, acme colors), does not introduce M3 tokens; UX guidance still applied (states, a11y).",
+      "files": ["inputs/acme-admin/index.html", "inputs/acme-admin/styles.css"]
+    }
+  ]
+}

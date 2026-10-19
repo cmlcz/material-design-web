@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<title>Projects</title>
+</head>
+<body class="bg-slate-50 p-6">
+  <button onclick="document.getElementById('modal').style.display='flex'" class="bg-red-600 text-white px-3 py-1 rounded">Delete project</button>
+
+  <div id="modal" style="display:none" class="fixed inset-0 bg-black/70 items-center justify-center">
+    <div class="bg-white w-[640px] rounded-md p-4">
+      <div class="flex justify-between">
+        <div class="font-bold text-lg">Warning!</div>
+        <div onclick="document.getElementById('modal').style.display='none'" class="cursor-pointer text-gray-400">✕</div>
+      </div>
+      <p class="text-gray-500 text-sm mt-2">Are you sure? This action cannot be undone and all data, files, members and settings of the project "Apollo Redesign" will be permanently removed from our servers.</p>
+      <div class="flex justify-start gap-3 mt-6">
+        <button onclick="alert('deleted')" class="bg-red-600 text-white px-4 py-2 rounded">YES</button>
+        <button onclick="document.getElementById('modal').style.display='none'" class="bg-red-600 text-white px-4 py-2 rounded">NO</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
