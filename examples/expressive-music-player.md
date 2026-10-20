@@ -6,7 +6,7 @@
 
 **Request:** "Make the now-playing card feel more playful and expressive."
 
-Prerequisite: add the Expressive `--radius-corner-*-increased` and `--ease-spring*` tokens from `expressive.md` to the theme.
+Prerequisite: add the Expressive `--ease-spring*` tokens from `expressive.md` to the theme (the extra corner sizes are already in `assets/theme.css`).
 
 ## Baseline
 

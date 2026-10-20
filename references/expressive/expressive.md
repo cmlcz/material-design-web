@@ -7,8 +7,9 @@
 ## Source confidence
 
 - **Verified** (Google's research article, design.google): the five levers (color, shape, size, motion, containment), the research findings and limits below.
-- **Reported** (Material 3 Expressive release, May 2025, Android/Compose implementation): spring motion scheme values, extra shape tokens, new components. Values are marked *(reported)*; use them, but say so if the user needs spec-exact output.
-- `@material/web` will **not** implement Expressive (maintainers, May 2025). Everything here is hand-built with Tailwind.
+- **Official tokens**: the extra corner sizes and emphasized type styles (material-web `tokens/versions/latest`), and the spring values (Compose `ExpressiveMotionTokens`).
+- **Reported** (Material 3 Expressive release, May 2025): button sizes and component patterns. These are marked *(reported)*; use them, but say so if the user needs spec-exact output.
+- material-web's experimental `labs/gb` folder has Expressive web components (button group, split button, toolbar, FAB, nav rail). It is labs code, so this file still hand-builds them with Tailwind.
 
 ## What it is
 
@@ -47,15 +48,7 @@ High intensity still keeps role pairs, contrast, 48px targets, labels, and reduc
 
 ### 2. Shape: variety and contrast
 
-Extra corner tokens *(reported)*; add to `@theme` when using Expressive:
-
-```css
-@theme {
-  --radius-corner-large-increased: 20px;
-  --radius-corner-extra-large-increased: 32px;
-  --radius-corner-extra-extra-large: 48px;
-}
-```
+Three extra corner sizes are already in the theme: see the Expressive rows in `foundations/shape.md`.
 
 - **Contrast shapes:** pair a fully round element with a square-ish one (round FAB on a 28px card), or mix corner sizes inside a group.
 - **Shape as state:** a selected or pressed element changes shape (round → squarer). Pressed buttons squish their corners:
@@ -70,11 +63,11 @@ Extra corner tokens *(reported)*; add to `@theme` when using Expressive:
 
 - The primary action of a view gets **one size step up**: a 56px button instead of 40px, a large FAB.
 - Button sizes *(reported)*: XS 32px, S 40px (baseline), M 56px, L 96px, XL 136px heights. Labels scale with them (`text-label-large` → `text-title-medium` → `text-headline-small` → `text-headline-large`).
-- Hero type: `text-display-*` for one key number or phrase; emphasized weights (`font-medium`/`font-bold` on display and headline) *(reported "emphasized" type styles)*.
+- Hero type: `text-display-*` for one key number or phrase. Emphasized type styles keep the role's size and add one weight step: `font-medium` on display, headline, title-large and body; `font-semibold` on title-medium, title-small and labels.
 
 ### 4. Motion: springs
 
-Expressive replaces duration+easing with **springs**. Two kinds *(reported, Compose `MotionScheme`)*:
+Expressive replaces duration+easing with **springs**. Two kinds (Compose `MotionScheme.expressive()`):
 
 - **Spatial** springs move position, size, rotation, shape; may overshoot.
 - **Effects** springs change color and opacity; never overshoot (use baseline `ease-standard` with short durations).
@@ -83,22 +76,24 @@ CSS approximation with `linear()` (computed from the spring equations; add to `@
 
 ```css
 @theme {
-  /* spatial default: damping 0.8, stiffness 380 → ~410ms, 1.4% overshoot */
-  --ease-spring: linear(0, 0.054, 0.166, 0.303, 0.443, 0.572, 0.683, 0.776, 0.849, 0.904, 0.945, 0.973, 0.993, 1.004, 1.011, 1.013, 1.014, 1.013, 1.011, 1.009, 1.007, 1.006, 1.004, 1.003, 1);
-  /* spatial fast: damping 0.6, stiffness 800 → ~340ms, 9% overshoot (bouncy) */
-  --ease-spring-fast: linear(0, 0.081, 0.259, 0.455, 0.644, 0.815, 0.936, 1.018, 1.069, 1.089, 1.090, 1.079, 1.062, 1.044, 1.026, 1.013, 1.003, 0.996, 0.993, 0.992, 0.992, 0.993, 0.995, 0.997, 1);
-  /* spatial slow: damping 0.8, stiffness 200 → ~560ms (large surfaces) */
-  --ease-spring-slow: linear(0, 0.054, 0.164, 0.303, 0.44, 0.572, 0.682, 0.777, 0.849, 0.905, 0.945, 0.974, 0.993, 1.005, 1.011, 1.014, 1.014, 1.013, 1.012, 1.01, 1.008, 1.006, 1.004, 1.003, 1);
+  /* spatial default: damping 0.8, stiffness 380, 400ms, 1.5% overshoot */
+  --ease-spring: linear(0, 0.044, 0.149, 0.28, 0.417, 0.546, 0.66, 0.755, 0.832, 0.891, 0.935, 0.967, 0.988, 1.002, 1.01, 1.014, 1.015, 1.015, 1.013, 1.011, 1.009, 1.007, 1.005, 1.004, 1);
+  /* spatial fast: damping 0.6, stiffness 800, 350ms, 9.5% overshoot (bouncy) */
+  --ease-spring-fast: linear(0, 0.072, 0.238, 0.44, 0.638, 0.806, 0.934, 1.021, 1.071, 1.092, 1.093, 1.081, 1.063, 1.044, 1.026, 1.012, 1.002, 0.995, 0.992, 0.991, 0.992, 0.993, 0.995, 0.997, 1);
+  /* spatial slow: damping 0.8, stiffness 200, 550ms (large surfaces) */
+  --ease-spring-slow: linear(0, 0.044, 0.148, 0.279, 0.416, 0.545, 0.658, 0.754, 0.831, 0.89, 0.934, 0.966, 0.988, 1.002, 1.01, 1.014, 1.015, 1.015, 1.013, 1.011, 1.009, 1.007, 1.005, 1.004, 1);
 }
 ```
 
-Pair each with its natural duration: `ease-spring duration-400`, `ease-spring-fast duration-350`, `ease-spring-slow duration-550`. Use fast for small elements (buttons, chips, toggles), default for cards and sheets, slow for full-screen surfaces. Reduced motion still collapses them (handled in `assets/theme.css`).
+Use these Expressive values, not material-web's spring tokens: those are the standard scheme (damping 0.9, stiffness 700 / 1400 / 300), which barely overshoots. For "low" intensity, baseline `ease-emphasized` is close enough.
+
+Pair each with its duration (the curve is drawn for it): `ease-spring duration-400`, `ease-spring-fast duration-350`, `ease-spring-slow duration-550`. Use fast for small elements (buttons, chips, toggles), default for cards and sheets, slow for full-screen surfaces. Reduced motion still collapses them (handled in `assets/theme.css`).
 
 ### 5. Containment: group with strong tiers
 
 - Group related controls in a visible container (`bg-surface-container-high rounded-corner-extra-large p-2`) instead of loose rows.
 - Increase tier contrast between regions; use larger corner radii on containers.
-- **Button groups** *(reported component)*: connected buttons in one container, the selected one changes shape and color:
+- **Button groups**: connected buttons in one container, the selected one changes shape and color:
 
 ```html
 <div role="group" aria-label="Text alignment" class="inline-flex gap-0.5 rounded-corner-full bg-surface-container-high p-1">

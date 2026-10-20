@@ -15,6 +15,9 @@
 | `rounded-corner-large` | 16px | FAB, navigation drawer (end side), extended FAB |
 | `rounded-corner-extra-large` | 28px | Dialogs, bottom sheets (top only), large FAB |
 | `rounded-corner-full` | pill / circle | Buttons, icon buttons, nav indicators, search bar, badges, switches, sliders |
+| `rounded-corner-large-increased` | 20px | Expressive only (`expressive/expressive.md`) |
+| `rounded-corner-extra-large-increased` | 32px | Expressive only |
+| `rounded-corner-extra-extra-large` | 48px | Expressive only: hero containers, large cards |
 
 ## Partial corners
 

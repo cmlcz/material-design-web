@@ -56,6 +56,30 @@
       "prompt": "Add a 'Team members' card to the workspace settings page in inputs/acme-admin/index.html: list of members with avatar, name, email, role, a way to change role and remove a member, and an 'Invite member' action. Save the updated page as index.updated.html in your outputs folder.",
       "expected_output": "Uses the existing Acme design system tokens/classes (acme-card, acme-btn-*, acme colors), does not introduce M3 tokens; UX guidance still applied (states, a11y).",
       "files": ["inputs/acme-admin/index.html", "inputs/acme-admin/styles.css"]
+    },
+    {
+      "id": 9,
+      "name": "fix-silent-bugs",
+      "difficulty": "hard",
+      "prompt": "inputs/plan-picker.html shows up as completely unstyled HTML in Chrome, and there is nothing in the console. Also, before the styles broke, the check mark showed on all three plans instead of only on the selected one. Find the root causes and fix both without redesigning the page. Save the fixed page as plan-picker.fixed.html and explain each root cause in response.md.",
+      "expected_output": "Adds an explicit @import \"tailwindcss\" (a comment mentioning @import disabled the browser build's automatic import); moves hidden / peer-checked:inline to a wrapper span because Google's unlayered .material-symbols-outlined display rule beats layered utilities; keeps the brand design; explains both causes. Graded in a real browser.",
+      "files": ["inputs/plan-picker.html"]
+    },
+    {
+      "id": 10,
+      "name": "brand-theme",
+      "difficulty": "hard",
+      "prompt": "Our brand color is #0b6e4f. Create theme.css for our Tailwind v4 app with Material 3 color schemes generated from it: the complete color role set (including the surface-container tiers) for light and dark, where light/dark follows the system setting and can be forced with data-theme=\"light\" or data-theme=\"dark\" on <html>, plus a high-contrast variant enabled with data-contrast=\"high\". Expose every role as a Tailwind color named after the role (bg-primary, text-on-surface, bg-surface-container-high...). Every on-color pair must pass WCAG AA. Save it as theme.css.",
+      "expected_output": "A generated (not hand-picked) M3 scheme: all roles resolve in both themes, M3 surface tones (T98/T6, container tiers in order), brand hue kept, AA in standard and 7:1 in high contrast, data-theme forcing works. Graded in a real browser.",
+      "files": []
+    },
+    {
+      "id": 11,
+      "name": "migrate-dashboard",
+      "difficulty": "hard",
+      "prompt": "Convert inputs/dashboard.html to Material 3 with Tailwind v4. It has to work on a 390px phone and on desktop, in light and dark mode (following the system setting), and keep every piece of data and every action that is there now. Make it one self-contained HTML file saved as dashboard.m3.html.",
+      "expected_output": "M3 tokens only, adaptive navigation, named row actions, labelled search, no horizontal scroll at 390px, contrast / targets / focus pass in light and dark at both widths, no data lost. Graded in a real browser at 4 configurations.",
+      "files": ["inputs/dashboard.html"]
     }
   ]
 }

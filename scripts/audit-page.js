@@ -38,6 +38,9 @@
     const r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0;
   };
+  // sr-only (1x1px, clipped): read by screen readers, never seen or tapped. Kept out of visible()
+  // because skip links show on focus and must stay in the focus check.
+  const srOnly = (el) => { const r = el.getBoundingClientRect(); return r.width <= 1 && r.height <= 1; };
   const describe = (el) => {
     let s = el.tagName.toLowerCase();
     if (el.id) s += "#" + el.id;
@@ -69,7 +72,7 @@
     const t = walker.currentNode;
     if (!t.textContent.trim()) continue;
     const el = t.parentElement;
-    if (!el || seen.has(el) || !visible(el)) continue;
+    if (!el || seen.has(el) || !visible(el) || srOnly(el)) continue;
     seen.add(el);
     const s = getComputedStyle(el);
     if (el.closest("[aria-hidden=true]") && !el.closest("button,a")) continue;
@@ -93,6 +96,7 @@
   const names = [];
   const labels = [];
   const els = [...document.querySelectorAll(INTERACTIVE)];
+  const isFieldTag = (el) => ["INPUT", "SELECT", "TEXTAREA"].includes(el.tagName);
   const nameOf = (el) => {
     const byId = (ids) => ids.split(/\s+/).map((id) => document.getElementById(id)?.textContent || "").join(" ");
     return (
@@ -100,7 +104,7 @@
       (el.getAttribute("aria-labelledby") && byId(el.getAttribute("aria-labelledby"))) ||
       (el.id && document.querySelector(`label[for="${CSS.escape(el.id)}"]`)?.textContent) ||
       el.closest("label")?.textContent ||
-      (["INPUT", "SELECT", "TEXTAREA"].includes(el.tagName) ? "" : el.textContent) ||
+      (isFieldTag(el) ? "" : el.textContent) ||
       el.getAttribute("title") ||
       el.querySelector("img[alt]")?.getAttribute("alt") ||
       (el.type === "submit" || el.type === "button" ? el.value : "") ||
@@ -110,9 +114,7 @@
   for (const el of els) {
     const label = el.closest("label");
     const box = (label && visible(label) ? label : el);
-    if (!visible(box)) continue;
-    // Visually hidden until focused (skip links, sr-only inputs outside labels): not a pointer target.
-    if (box.getBoundingClientRect().width <= 1 && box.getBoundingClientRect().height <= 1) continue;
+    if (!visible(box) || srOnly(box)) continue;
     // Inline text links are exempt from target size (WCAG 2.5.8 inline exception).
     const s = getComputedStyle(el);
     const inlineLink = el.tagName === "A" && s.display === "inline" && el.parentElement && /^(P|LI|SPAN|TD|DD)$/.test(el.parentElement.tagName);
@@ -128,7 +130,7 @@
     if (!inlineLink && (w < 48 || h < 48) && targets.length < MAX) {
       targets.push({ el: describe(el), width: Math.round(w), height: Math.round(h), severity: w < 24 || h < 24 ? "fail" : "below-48" });
     }
-    const isField = ["INPUT", "SELECT", "TEXTAREA"].includes(el.tagName) && !["submit", "button", "reset", "image"].includes(el.type);
+    const isField = isFieldTag(el) && !["submit", "button", "reset", "image"].includes(el.type);
     const name = nameOf(el);
     if (isField && !name && labels.length < MAX) {
       labels.push({ el: describe(el), placeholderOnly: !!el.getAttribute("placeholder") });

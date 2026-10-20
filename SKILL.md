@@ -22,6 +22,7 @@ Material 3 (M3) is a system of **roles**, not colors: every surface, text and sh
 Decide which system governs this UI before writing a line:
 
 - **Existing design system** (its own tokens, a component library such as shadcn/ui, Bootstrap, Chakra, a brand kit): that system wins. Use only the system-agnostic UX references (`references/ux/`, `references/layout/`) and say so.
+- **Google's M3 Tailwind bridge** (material-web `labs/gb`: `typescale-*` classes, `--md-sys-space-*` variables): already M3. Use this skill, but keep the project's class names (mapping in `references/tailwind/naming.md`).
 - **Material project, Material requested, or nothing in place**: continue with this skill.
 - **Expressive** (playful, bold, energetic, "Material 3 Expressive"): only when the user asks. Then also read `references/expressive/expressive.md`.
 

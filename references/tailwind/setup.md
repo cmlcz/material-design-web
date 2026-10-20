@@ -50,7 +50,7 @@ npx @tailwindcss/cli -i ./src/app.css -o ./dist/app.css --watch
 Single-file prototype (no build; not for production):
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
 <style type="text/tailwindcss">
   @import "tailwindcss";
   /* then the contents of assets/theme.css */

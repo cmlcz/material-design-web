@@ -1,7 +1,7 @@
 /*
  * Material Design 3 theme for Tailwind CSS v4
  * -------------------------------------------
- * Source of values: Google's material-web token files (tokens/versions/v0_192),
+ * Source of values: Google's material-web token files (tokens/versions/latest, checked 2026-10-20),
  * baseline scheme (seed #6750A4). Replace the color block with a generated
  * scheme for a brand color (see references/tailwind/dark-mode-and-brand-color.md).
  *
@@ -36,7 +36,7 @@
   --md-sys-color-primary: light-dark(#6750a4, #d0bcff);
   --md-sys-color-on-primary: light-dark(#ffffff, #381e72);
   --md-sys-color-primary-container: light-dark(#eaddff, #4f378b);
-  --md-sys-color-on-primary-container: light-dark(#21005d, #eaddff);
+  --md-sys-color-on-primary-container: light-dark(#4f378b, #eaddff);
   --md-sys-color-inverse-primary: light-dark(#d0bcff, #6750a4);
   --md-sys-color-primary-fixed: #eaddff;
   --md-sys-color-primary-fixed-dim: #d0bcff;
@@ -47,7 +47,7 @@
   --md-sys-color-secondary: light-dark(#625b71, #ccc2dc);
   --md-sys-color-on-secondary: light-dark(#ffffff, #332d41);
   --md-sys-color-secondary-container: light-dark(#e8def8, #4a4458);
-  --md-sys-color-on-secondary-container: light-dark(#1d192b, #e8def8);
+  --md-sys-color-on-secondary-container: light-dark(#4a4458, #e8def8);
   --md-sys-color-secondary-fixed: #e8def8;
   --md-sys-color-secondary-fixed-dim: #ccc2dc;
   --md-sys-color-on-secondary-fixed: #1d192b;
@@ -57,7 +57,7 @@
   --md-sys-color-tertiary: light-dark(#7d5260, #efb8c8);
   --md-sys-color-on-tertiary: light-dark(#ffffff, #492532);
   --md-sys-color-tertiary-container: light-dark(#ffd8e4, #633b48);
-  --md-sys-color-on-tertiary-container: light-dark(#31111d, #ffd8e4);
+  --md-sys-color-on-tertiary-container: light-dark(#633b48, #ffd8e4);
   --md-sys-color-tertiary-fixed: #ffd8e4;
   --md-sys-color-tertiary-fixed-dim: #efb8c8;
   --md-sys-color-on-tertiary-fixed: #31111d;
@@ -67,7 +67,7 @@
   --md-sys-color-error: light-dark(#b3261e, #f2b8b5);
   --md-sys-color-on-error: light-dark(#ffffff, #601410);
   --md-sys-color-error-container: light-dark(#f9dedc, #8c1d18);
-  --md-sys-color-on-error-container: light-dark(#410e0b, #f9dedc);
+  --md-sys-color-on-error-container: light-dark(#8c1d18, #f9dedc);
 
   /* Surfaces (neutral) */
   --md-sys-color-background: light-dark(#fef7ff, #141218);
@@ -189,6 +189,7 @@
   --font-sans: var(--font-plain);
   --font-weight-regular: 400;
   --font-weight-medium: 500;
+  --font-weight-semibold: 600; /* emphasized title-medium/-small and label styles */
   --font-weight-bold: 700;
 }
 
@@ -220,6 +221,10 @@
   --radius-corner-large: 16px;
   --radius-corner-extra-large: 28px;
   --radius-corner-full: 9999px;
+  /* Expressive sizes (also in the official token set); baseline components don't use them */
+  --radius-corner-large-increased: 20px;
+  --radius-corner-extra-large-increased: 32px;
+  --radius-corner-extra-extra-large: 48px;
 
   /* Elevation: shadow-elevation-<level>. Level 0 = shadow-none. */
   --shadow-*: initial;

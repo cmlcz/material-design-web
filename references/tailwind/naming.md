@@ -19,7 +19,7 @@
 | Color with opacity | role + opacity | `<prefix>-<role>/<percent>` | `bg-on-surface/12`, `bg-scrim/32` |
 | Type role | `md.sys.typescale.<role>-<size>` | `text-<role>-<size>` | `text-title-medium` |
 | Typeface | `md.ref.typeface.brand` / `.plain` | `font-brand`, `font-plain` | `font-brand text-display-small` |
-| Weight | `md.ref.typeface.weight-*` | `font-regular`, `font-medium`, `font-bold` | `text-label-large font-bold` (prominent label) |
+| Weight | `md.ref.typeface.weight-*` | `font-regular`, `font-medium`, `font-semibold`, `font-bold` | `text-label-large font-semibold` (emphasized label) |
 | Shape | `md.sys.shape.corner.<size>` | `rounded-corner-<size>`, `rounded-t-corner-<size>`, `rounded-e-corner-<size>` | `rounded-corner-extra-large` |
 | Elevation | `md.sys.elevation.level<n>` | `shadow-elevation-<n>` (level 0 = `shadow-none`) | `shadow-elevation-3` |
 | Easing | `md.sys.motion.easing.<name>` | `ease-<name>` | `ease-emphasized-decelerate` |
@@ -45,6 +45,21 @@ If an existing project still needs the defaults, delete the matching `--*-*: ini
 - Icon glyph size (`text-[18px]`, `text-[20px]`) because icons are not type roles.
 - Exact component dimensions from a spec that Tailwind's 4px grid can't express (`w-[360px]` drawer); prefer the spacing scale when it can (`w-90` = 360px).
 - `max-w-[65ch]` for line length.
+
+## Google's Tailwind bridge (material-web `labs/gb`)
+
+material-web's experimental bridge (`labs/gb/styles/tailwind.scss`) maps M3 tokens onto Tailwind's own names. A project that uses it already has M3 tokens: keep its class names and don't add `assets/theme.css`. Recognize it by `typescale-*` classes, `--md-sys-space-*` variables or an `@layer md`. Color classes are the same in both. The rest maps like this:
+
+| This skill | Google's bridge |
+|---|---|
+| `text-body-large` | `typescale-body-lg` (`-sm` / `-md` / `-lg` for every role); emphasized: `typescale-emphasized-body-lg` |
+| `rounded-corner-extra-small` / `-small` / `-medium` / `-large` | `rounded-xs` / `-sm` / `-md` / `-lg` |
+| `rounded-corner-large-increased` / `-extra-large` / `-extra-large-increased` / `-extra-extra-large` | `rounded-xl` / `-2xl` / `-3xl` / `-4xl` |
+| `shadow-elevation-1` … `-5` | `shadow-xs` / `-sm` / `-md` / `-lg` / `-xl` |
+| `medium:` / `expanded:` / `large:` / `extra-large:` | `sm:` / `md:` / `lg:` / `xl:` (same 600 / 840 / 1200 / 1600px widths) |
+| `p-4` (16px) | `p-4` still works, plus M3 space tokens `p-s200` (16px; `s100` = 8px) |
+
+In these projects, ignore `lint-tokens.mjs` warnings about `rounded-*`, `shadow-*` and `sm:`/`md:`: there the names are M3 tokens.
 
 ## Extending
 

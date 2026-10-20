@@ -15,7 +15,7 @@ import { join, extname, relative } from "node:path";
 const EXT = new Set([".html", ".htm", ".jsx", ".tsx", ".js", ".ts", ".vue", ".svelte", ".astro", ".css", ".scss", ".php", ".erb", ".njk", ".hbs", ".liquid", ".mdx"]);
 const SKIP_DIR = new Set(["node_modules", ".git", "dist", "build", ".next", ".nuxt", ".svelte-kit", "coverage", ".turbo", "out"]);
 
-const PALETTE = "slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose";
+const PALETTE = "slate|gray|zinc|neutral|stone|mauve|olive|mist|taupe|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose";
 const COLOR_PREFIX = "bg|text|border(?:-[trblxyse])?|ring|ring-offset|fill|stroke|outline|from|to|via|divide|shadow|accent|caret|decoration|placeholder";
 
 // [id, severity, regex, message]
